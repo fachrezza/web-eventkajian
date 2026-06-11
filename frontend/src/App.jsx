@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 
 import Home from "./pages/Home";
 import EventDetail from "./pages/EventDetail";
+import Attendance from "./dashboard/Attendance";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       {/* ADMIN */}
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/attendance"element={<Attendance/>} />
     </Routes>
   );
 }

@@ -6,6 +6,16 @@ use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\TicketScanController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\AttendanceController;
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('/attendance/scan', [
+        AttendanceController::class,
+        'scan'
+    ]);
+
+});
 
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/events/{id}', [EventController::class, 'show']);
