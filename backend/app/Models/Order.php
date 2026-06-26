@@ -16,6 +16,8 @@ class Order extends Model
         'quantity',
         'total_amount',
         'payment_status',
+        'source',
+        'expired_at',
     ];
 
     public function event()

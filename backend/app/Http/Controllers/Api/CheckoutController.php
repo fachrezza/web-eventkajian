@@ -71,6 +71,8 @@ class CheckoutController extends Controller
 
             'total_amount' => $totalAmount,
 
+            'expired_at' => now()->addMinutes(30),
+
         ]);
 
         $snapToken =

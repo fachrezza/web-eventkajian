@@ -7,6 +7,63 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\TicketScanController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\Api\TicketTypeController;
+use Illuminate\Support\Facades\Http;
+
+Route::get('/test-sheet', function () {
+
+    $response = Http::post(
+        env('GOOGLE_SHEET_WEBHOOK'),
+        [
+
+            'order_code' => 'TEST-001',
+
+            'customer_name' => 'EXGaming',
+
+            'customer_email' => 'test@gmail.com',
+
+            'customer_phone' => '08123456789',
+
+            'ticket_name' => 'VIP',
+
+            'quantity' => 2,
+
+            'payment_status' => 'paid',
+
+        ]
+    );
+
+    return $response->body();
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/ticket-types', [TicketTypeController::class, 'index']);
+    Route::put('/ticket-types/{id}', [TicketTypeController::class, 'update']);
+
+});
+
+Route::get(
+    '/tickets/download/{token}',
+    [TicketController::class, 'download']
+);
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/orders', [OrderController::class, 'index']);
+
+    Route::post(
+        '/orders/{id}/checkin',
+        [OrderController::class, 'manualCheckin']
+    );
+    Route::post(
+        '/orders/manual',
+        [OrderController::class, 'storeManual']
+    );
+
+});
 
 Route::middleware('auth:sanctum')->group(function () {
 

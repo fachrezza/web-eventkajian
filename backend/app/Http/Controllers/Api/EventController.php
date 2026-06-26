@@ -7,16 +7,21 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
+    // LIST EVENT
     public function index()
     {
-        return response()->json([
-            'data' => Event::latest()->get()
-        ]);
+        $events = Event::with('ticketTypes')
+            ->latest()
+            ->get();
+
+        return response()->json($events);
     }
 
+    // DETAIL EVENT
     public function show($id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with('ticketTypes')
+            ->findOrFail($id);
 
         return response()->json($event);
     }

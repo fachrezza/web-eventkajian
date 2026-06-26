@@ -12,58 +12,53 @@ class AttendanceController extends Controller
 {
     public function scan(Request $request)
     {
+        // VALIDASI
         $request->validate([
             'token' => 'required'
         ]);
 
-        $ticket = Ticket::where(
-            'qr_token',
-            $request->token
-        )->first();
+        // CARI TICKET BERDASARKAN QR TOKEN
+        $ticket = Ticket::with('order')
+            ->where('qr_token', $request->token)
+            ->first();
 
+        // TICKET TIDAK ADA
         if (!$ticket) {
 
             return response()->json([
-
-                'success' => false,
-
-                'message' => 'Ticket tidak valid'
-
+                'message' => 'Ticket tidak ditemukan'
             ], 404);
+
         }
 
+        // SUDAH CHECK-IN
         if ($ticket->status === 'used') {
 
             return response()->json([
-
-                'success' => false,
-
                 'message' => 'Ticket sudah digunakan'
-
             ], 400);
+
         }
 
+        // UPDATE STATUS
         $ticket->update([
             'status' => 'used'
         ]);
 
+        // SIMPAN CHECKIN
         Checkin::create([
-
             'ticket_id' => $ticket->id,
-
             'user_id' => auth()->id(),
-
             'checkin_time' => now(),
-
         ]);
 
         return response()->json([
 
-            'success' => true,
+            'message' => 'Check-in berhasil',
 
-            'message' => 'Checkin berhasil',
+            'customer' => $ticket->order->customer_name,
 
-            'ticket' => $ticket,
+            'ticket_code' => $ticket->ticket_code,
 
         ]);
     }

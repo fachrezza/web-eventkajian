@@ -44,5 +44,7 @@ return [
             'is_3ds' => env('MIDTRANS_IS_3DS', true),
 
     ],
+    'google_sheet_webhook' =>
+        env('GOOGLE_SHEET_WEBHOOK'),
 
 ];

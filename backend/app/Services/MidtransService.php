@@ -40,7 +40,18 @@ class MidtransService
 
                 'phone' => $order->customer_phone,
 
-            ]
+            ],
+
+            'expiry' => [
+
+                'start_time' => now()
+                    ->format('Y-m-d H:i:s O'),
+
+                'unit' => 'minute',
+
+                'duration' => 30,
+
+            ],
 
         ];
 

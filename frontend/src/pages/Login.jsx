@@ -15,38 +15,74 @@ export default function Login() {
       });
 
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     } catch (err) {
       alert("Login gagal");
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          Admin Login
-        </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100 px-4 relative overflow-hidden">
+      
+      {/* Background Blur */}
+      <div className="absolute w-72 h-72 bg-pink-300/30 rounded-full blur-3xl top-0 left-0"></div>
+      <div className="absolute w-72 h-72 bg-rose-200/40 rounded-full blur-3xl bottom-0 right-0"></div>
 
-        <input
-          className="w-full border p-2 mb-3 rounded"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <div className="relative w-full max-w-md">
+        
+        {/* Card */}
+        <div className="bg-white/80 backdrop-blur-lg border border-pink-100 shadow-2xl rounded-3xl p-8">
+          
+          {/* Logo / Title */}
+          <div className="text-center mb-8">
 
-        <input
-          type="password"
-          className="w-full border p-2 mb-4 rounded"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <h1 className="text-3xl font-bold text-gray-800">
+              Login Admin
+            </h1>
 
-        <button
-          onClick={login}
-          className="w-full bg-indigo-600 text-white p-2 rounded"
-        >
-          Login
-        </button>
+          </div>
+
+          {/* Email */}
+          <div className="mb-4">
+            <label className="text-sm text-gray-600 mb-2 block">
+              Email
+            </label>
+
+            <input
+              type="email"
+              placeholder="Email Admin"
+              className="w-full border border-pink-100 focus:border-pink-400 focus:ring-4 focus:ring-pink-100 outline-none p-3 rounded-xl bg-pink-50/50 transition"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-6">
+            <label className="text-sm text-gray-600 mb-2 block">
+              Password
+            </label>
+
+            <input
+              type="password"
+              placeholder="••••••••"
+              className="w-full border border-pink-100 focus:border-pink-400 focus:ring-4 focus:ring-pink-100 outline-none p-3 rounded-xl bg-pink-50/50 transition"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={login}
+            className="w-full bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-pink-200 transition duration-300"
+          >
+            Login Dashboard
+          </button>
+
+          {/* Footer */}
+          <p className="text-center text-xs text-gray-400 mt-6">
+            © 2026 Kajian Event Management
+          </p>
+        </div>
       </div>
     </div>
   );
